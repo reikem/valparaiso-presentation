@@ -1,0 +1,28 @@
+---
+import { Image } from "astro:assets";
+
+const { 
+  title, 
+  items, 
+  isRounded 
+} = Astro.props;
+---
+<section class="py-20 px-4 md:px-12 bg-white">
+  <h2 class="text-4xl font-serif mb-12 text-center md:text-left">{title}</h2>
+  <div class="grid md:grid-cols-3 gap-8">
+    {items.map(item => (
+      <div class={`flex flex-col ${isRounded ? 'rounded-xl shadow-lg p-6 bg-card-bg' : ''}`}>
+        {item.image && (
+          <Image src={item.image} alt={item.title} inferSize={true} class={`w-full object-cover mb-4 ${isRounded ? 'rounded-lg' : ''}`} />
+        )}
+        <h3 class="text-xl font-bold mb-2">{item.title}</h3>
+        <p class="text-sm text-gray-600 mb-4">{item.description}</p>
+        {item.button && (
+          <button class={`mt-auto text-sm font-semibold uppercase ${isRounded ? 'text-primary-green' : ''}`}>
+            {item.button}
+          </button>
+        )}
+      </div>
+    ))}
+  </div>
+</section>

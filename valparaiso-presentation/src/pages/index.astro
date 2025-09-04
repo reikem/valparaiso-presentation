@@ -1,11 +1,76 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import FaqSection from '../components/FaqSection.astro';
+import FeaturesGrid from '../components/FeaturesGrid.astro';
+import Header from '../components/Header.astro';
+import TwoColumnSection from '../components/TwoColumnSection.astro';
 import Layout from '../layouts/Layout.astro';
+import { Image} from 'astro:assets';
+import imagePortada from '../assets/portada.jpg'
+import imageSection from '../assets/section-image.jpg';
+import notHippie from '../assets/not-hippie.webp';  
+import portada2 from '../assets/portada 2.jpg';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+	<Header
+    image={imagePortada}
+    pretitle="Bienvenidos a Valparaíso"
+    title="La ciudad de los cerros y del arte urbano"
+    subtitle="Escritora y directora de fotografía de viajes"
+    buttonText="MOSTRAR MÁS"
+  />
+
+  <FeaturesGrid
+    title="La ciudad de los cerros, encontraras los lugares mas destacados"
+    items={[
+      {
+        image: notHippie,
+        title: "El mundo con un presupuesto reducido",
+        description: "Incluye los mejores posts de tus viajes para que tus posibles colaboradores se hagan una idea del tipo de trabajo que realizas."
+      },
+      {
+        image:portada2,
+        title:"Las mejores vistas de Valparaíso",
+        description: "Desde los cerros más altos hasta las playas más tranquilas, descubre los rincones más bellos de la ciudad.",
+        button: "VER MÁS"
+      }
+
+    ]}
+  />
+
+  <TwoColumnSection
+    title="Qué esperar de mis blogs"
+    buttonText="SÍGUENOS"
+    isReversed={true}
+  >
+    <div class="space-y-6">
+      <div class="flex items-center space-x-4">
+        <Image src={imageSection} alt="Lugares imprescindibles" class="w-20 h-20 object-cover rounded-md" />
+        <div>
+          <h3 class="text-lg font-bold">Lugares imprescindibles</h3>
+          <p class="text-sm text-gray-600">Descubre destinos que no te puedes perder.</p>
+        </div>
+      </div>
+      </div>
+  </TwoColumnSection>
+  <FaqSection
+    title="Preguntas frecuentes"
+    image={imagePortada}
+    items={[
+      {
+        question: "¿Qué tipo de contenido compartes?",
+        answer: "Comparto mis experiencias de viaje, consejos prácticos y recomendaciones sobre los lugares que visito."
+      },
+      {
+        question: "¿Cómo puedo colaborar contigo?",
+        answer: "Puedes contactarme a través de mis redes sociales o correo electrónico para discutir posibles colaboraciones."
+      },
+      {
+        question: "¿Tienes algún blog específico sobre Valparaíso?",
+        answer: "Sí, tengo varios blogs dedicados a Valparaíso, donde comparto mis experiencias y recomendaciones."
+      }
+    ]}
+  />
+
 </Layout>

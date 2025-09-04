@@ -1,0 +1,71 @@
+---
+import { Image} from 'astro:assets';
+import imageLogo from '../assets/logo.png';
+---
+<nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+  <div class="container mx-auto flex justify-between items-center h-16 px-4 md:px-12">
+    <a href="/" class="flex items-center text-2xl font-bold text-white-800 dark:text-white-200 hover:text-secondary-orange transition-colors duration-300">
+      <Image 
+        src={imageLogo} 
+        alt="Logo de Valparaíso" 
+        class="h-10 w-auto mr-2" loading="lazy"
+      />
+        <span>Valparaíso</span>
+      </a>
+    
+    <ul class="hidden md:flex space-x-6 text-white-800 dark:text-white-200">
+      <li><a href="/blog" class="hover:text-secondary-orange transition-colors duration-300 font-semibold">Blog</a></li>
+      <li><a href="/proyectos" class="hover:text-white-800 transition-colors duration-300 font-semibold">Proyectos</a></li>
+      <li><a href="/contacto" class="hover:text-white-800 transition-colors duration-300 font-semibold">Contacto</a></li>
+    </ul>
+    
+
+  </div>
+</nav>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  const scrollThreshold = 50; 
+
+  function handleScroll() {
+    if (window.scrollY > scrollThreshold) {
+      navbar.classList.add('bg-white', 'bg-opacity-90', 'backdrop-filter', 'backdrop-blur-md', 'shadow-md');
+      navbar.classList.remove('dark:bg-gray-800', 'dark:bg-opacity-90');
+    } else {
+      navbar.classList.remove('bg-white', 'bg-opacity-90', 'backdrop-filter', 'backdrop-blur-md', 'shadow-md');
+      if (document.documentElement.classList.contains('dark')) {
+        navbar.classList.add('dark:bg-gray-800', 'dark:bg-opacity-90');
+      } else {
+        navbar.classList.remove('dark:bg-gray-800', 'dark:bg-opacity-90');
+      }
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('DOMContentLoaded', handleScroll);
+  const themeToggle = document.getElementById('theme-toggle');
+  const iconMoon = document.getElementById('icon-moon');
+  const iconSun = document.getElementById('icon-sun');
+
+  function updateTheme(isDark) {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      iconSun.style.display = 'block';
+      iconMoon.style.display = 'none';
+    } else {
+      document.documentElement.classList.remove('dark');
+      iconSun.style.display = 'none';
+      iconMoon.style.display = 'block';
+    }
+    handleScroll(); 
+  }
+
+  const isDark = document.documentElement.classList.contains('dark');
+  updateTheme(isDark);
+
+  themeToggle.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    updateTheme(isDark);
+  });
+</script>

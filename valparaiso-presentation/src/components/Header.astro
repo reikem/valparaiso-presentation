@@ -1,0 +1,27 @@
+---
+import Image from "astro/components/Image.astro";
+
+const { 
+  image, 
+  pretitle, 
+  title, 
+  subtitle, 
+  buttonText 
+} = Astro.props;
+---
+<header class="relative h-screen w-full flex items-center justify-start text-white p-4">
+  <Image 
+    src={image} 
+    alt="Fondo de paisaje" 
+    class="absolute inset-0 w-full h-full object-cover"
+  />
+  <div class="absolute inset-0 bg-black opacity-40"></div>
+  <div class="relative z-10 space-y-4 text-left pl-10 md:pl-20">
+    {pretitle && <p class="text-xs tracking-widest">{pretitle}</p>}
+    <h1 class="text-6xl font-serif text-amber-50">{title}</h1>
+    <p class="text-xl font-light">{subtitle}</p>
+    <button class="bg-secondary-orange text-white py-3 px-8 text-sm font-bold uppercase hover:bg-orange-600 transition-colors duration-300">
+      {buttonText}
+    </button>
+  </div>
+</header>
